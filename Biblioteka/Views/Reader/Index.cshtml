@@ -1,0 +1,35 @@
+﻿@model IList<Reader>
+
+@{
+    ViewData["Title"] = "Lista czytelników";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Lista czytelników</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Imię</th>
+                <th scope="col">Nazwisko</th>
+                <th scope="col">Nr telefonu</th>
+                <th scope="col" colspan="2">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="2"><a class="btn btn-success" href='@Url.Action("Create")'>Dodaj</a></td>
+            </tr>
+            @foreach(var r in Model)
+            {
+                <tr>
+                    <td>@r.FirstName</td>
+                    <td>@r.LastName</td>
+                    <td>@r.PhoneNumber</td>
+                    <td><a href='@Url.Action("Edit", new {id = r.ReaderId })' class="btn btn-primary">Edytuj</a></td>
+                    <td><a href='@Url.Action("Delete", new { id = r.ReaderId })' class="btn btn-danger">Usuń</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

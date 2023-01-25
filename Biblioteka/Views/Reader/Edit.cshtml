@@ -1,0 +1,63 @@
+﻿@model Reader
+
+@{
+    ViewData["Title"] = "Edytuj czytelnika";
+}
+
+<div class="text-left">
+    <form asp-action="Edit">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ReaderId" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="FirstName">Imię</label>
+                <input asp-for="FirstName" class="form-control" placeholder="Imię" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="LastName">Nazwisko</label>
+                <input asp-for="LastName" class="form-control" placeholder="Nazwisko" />
+            </div>
+            <div class="form-group col-12">
+                <label asp-for="PhoneNumber">Nr telefonu:</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="123456789" />
+            </div>
+            <div>
+                <input type="submit" value="Zmień dane" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+@if (@Model.CurrentlyBorrowed is not null && Model.CurrentlyBorrowed.Count > 0)
+{
+    <div class="text-center">
+        <h1 class="display-4">Obecnie wypożyczone</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Tytuł</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col" colspan="1">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in Model.CurrentlyBorrowed)
+                {
+                    <tr class="align-middle">
+                        <td><div class="align-self-center"><a class="page-link" href='@Url.Action("Edit", "Book", new { id = b.BookId })'>@b.Isbn</a></div></td>
+                        <td>@b.Title</td>
+                        <td>@b.Author</td>
+                        <td>
+                            <form asp-action="Return" asp-controller="Borrow">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="readerId" value="@Model.ReaderId"/>
+                                <input type="hidden" name="bookId" value="@b.BookId"/>
+                                <input type="submit" value="Zwróć" class="btn btn-primary"/>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

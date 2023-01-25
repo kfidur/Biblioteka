@@ -1,0 +1,14 @@
+﻿@model Reader
+
+@{
+    ViewData["Title"] = "Potwierdzenie usunięcia";
+}
+
+<div class="text-center">
+    <h5>Czy napewno usunąć @Model.FullName ?</h5>
+    <div class="p-3 mb-2 bg-danger text-white"><b>Ta akcja jest nieodwracalna</b></div>
+    <form asp-action="Delete">
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Potwierdzam" class="btn btn-outline-danger" />
+    </form>
+</div>

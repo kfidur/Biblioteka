@@ -1,0 +1,47 @@
+﻿@model IList<Book>
+
+@{
+    ViewData["Title"] = "Lista książek";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Lista książek</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Pozostałe sztuki</th>
+                <th scope="col">Okładka</th>
+                <th scope="col" colspan="3">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5"></td>
+                <td colspan="3"><a class="btn btn-success" href='@Url.Action("Create")'>Dodaj</a></td>
+            </tr>
+            @foreach (var r in Model)
+            {
+                <tr class="align-middle">
+                    <td><div class="align-self-center">@r.Isbn</div></td>
+                    <td>@r.Title</td>
+                    <td>@r.Author</td>
+                    <td>@r.CopiesInLibrary</td>
+                    <td><img src="@r.CoverUrl" alt="okładka książki" style="width: 10rem;" /></td>
+                    <td><a href='@Url.Action("Edit", new {id = r.BookId })' class="btn btn-primary">Edytuj</a></td>
+                    <td><a href='@Url.Action("Delete", new { id = r.BookId })' class="btn btn-danger">Usuń</a></td>
+                    <td>
+                        @if (r.CopiesInLibrary > 0)
+                        {
+                            <a href='@Url.Action("Borrow", "Borrow", new {bookId = r.BookId})' class="btn btn-primary">
+                                Wypożycz
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

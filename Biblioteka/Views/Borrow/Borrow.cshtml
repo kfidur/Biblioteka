@@ -1,0 +1,23 @@
+﻿@model BorrowChoseReaderViewModel
+
+@{
+    ViewData["Title"] = "Komu wypożyczyć";
+}
+
+<div class="text-center">
+    <h5>Komu wypożyczyć tą książkę ?</h5>
+    <form asp-action="Borrow">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="bookId" value="@Model.Book.BookId" />
+        <div class="form-group">
+            <label>Czytelnik</label>
+            <select class="form-control" name="readerId">
+                @foreach (var r in @Model.Readers)
+                {
+                    <option value="@r.ReaderId">@r.ReaderId:@r.FullName</option>
+                }
+            </select>
+        </div>
+        <input type="submit" value="Wypożycz" class="btn btn-primary" />
+    </form>
+</div>

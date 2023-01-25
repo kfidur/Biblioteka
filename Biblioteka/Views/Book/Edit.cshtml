@@ -1,0 +1,65 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Edytuj czytelnika";
+}
+
+<div class="text-left">
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="BookId" />
+                <div class="form-group">
+                    <label asp-for="Isbn">ISBN:</label>
+                    <input asp-for="Isbn" class="form-control" placeholder="X-XXX-XXXXX-X" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author">Imię i nazwisko autora:</label>
+                    <input asp-for="Author" class="form-control" placeholder="Jan Kowalski" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title">Tytuł:</label>
+                    <input asp-for="Title" class="form-control" placeholder="Tytuł" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="CopiesInLibrary">Ile w bibliotece:</label>
+                    <input asp-for="CopiesInLibrary" class="form-control" min="0" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoverUrl">Adres okładki:</label>
+                    <input asp-for="CoverUrl" class="form-control" placeholder="http://example.com/cover.jpg" />
+                </div>
+                <div>
+                    <input type="submit" value="Zmień dane" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <img src="@Model.CoverUrl" alt="Zdjęcie okładki" />
+        </div>
+    </div>
+</div>
+@if (@Model.CurrentlyBorrowing is not null && Model.CurrentlyBorrowing.Count > 0)
+{
+    <div class="text-center">
+        <h1 class="display-4">Obecnie wypożyczają</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Imię i nazwisko</th>
+                    <th scope="col">Nr telefonu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.CurrentlyBorrowing)
+                {
+                    <tr class="align-middle">
+                        <td><div class="align-self-center"><a class="page-link" href='@Url.Action("Edit", "Reader", new {id = r.ReaderId})'>@r.FullName</a></div></td>
+                        <td>@r.PhoneNumber </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

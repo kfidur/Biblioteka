@@ -1,0 +1,36 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Stwóz książkę";
+}
+
+<div class="text-left">
+    <form asp-action="Create">
+        @Html.AntiForgeryToken()
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="Isbn">ISBN:</label>
+                <input asp-for="Isbn" class="form-control" placeholder="X-XXX-XXXXX-X" />
+            </div>
+            <div class="form-group col-md-8">
+                <label asp-for="Author">Imię i nazwisko autora:</label>
+                <input asp-for="Author" class="form-control" placeholder="Jan Kowalski" />
+            </div>
+            <div class="form-group col-md-9">
+                <label asp-for="Title">Tytuł:</label>
+                <input asp-for="Title" class="form-control" placeholder="Tytuł" />
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="CopiesInLibrary">Ile w bibliotece:</label>
+                <input asp-for="CopiesInLibrary" class="form-control" placeholder="0" />
+            </div>
+            <div class="form-group col-12">
+                <label asp-for="CoverUrl">Adres okładki:</label>
+                <input asp-for="CoverUrl" class="form-control" placeholder="http://example.com/cover.jpg" />
+            </div>
+            <div>
+                <input type="submit" value="Utwórz" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>

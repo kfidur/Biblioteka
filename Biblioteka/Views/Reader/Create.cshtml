@@ -1,0 +1,28 @@
+﻿@model Reader
+
+@{
+    ViewData["Title"] = "Lista czytelników";
+}
+
+<div class="text-left">
+    <form asp-action="Create">
+        @Html.AntiForgeryToken()
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="FirstName">Imię</label>
+                <input asp-for="FirstName" class="form-control" placeholder="Imię" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="LastName">Nazwisko</label>
+                <input asp-for="LastName" class="form-control" placeholder="Nazwisko" />
+            </div>
+            <div class="form-group col-12">
+                <label asp-for="PhoneNumber">Nr telefonu:</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="123456789" />
+            </div>
+            <div>
+                <input type="submit" value="Utwórz" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
